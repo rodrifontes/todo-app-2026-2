@@ -13,10 +13,11 @@ import {
 } from './styles';
 
 import remove from '../../assets/images/delete.png';
+import done from '../../assets/images/done.png';
 import edit from '../../assets/images/edit.png';
 import pending from '../../assets/images/pending.png';
 
-export default function Tasks({ tasks }) {
+export default function Tasks({ tasks, onChangeTask, onDeleteTask, onChangeStatusTask }) {
   return (
     <FlatList
       data={tasks}
@@ -30,16 +31,18 @@ export default function Tasks({ tasks }) {
             <Text opacity={0.5}>{task.description}</Text>
           </TaskDescription>
           <TaskFooter>
-            <TaskStatus onPress={() => alert("Pressionado")}>
-              <TaskIcon source={pending} />
-              <Text color="#E620AE">Pendente</Text>
+            <TaskStatus onPress={() => onChangeStatusTask(task.id)}>
+              <TaskIcon source={task.done ? done : pending} />
+              <Text color={task.done ? '#2192d8' : '#E620AE'}>
+                {task.done ? 'Feita' : 'Pendente'}
+              </Text>
             </TaskStatus>
 
             <TaskActions>
-              <TouchableOpacity onPress={() => alert("Alterar")}>
+              <TouchableOpacity onPress={() => onChangeTask(task)}>
                 <TaskIcon source={edit} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => alert("Excluir")}>
+              <TouchableOpacity onPress={() => onDeleteTask(task.id)}>
                 <TaskIcon source={remove} />
               </TouchableOpacity>
             </TaskActions>
