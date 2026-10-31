@@ -2,9 +2,10 @@ import { useState } from 'react';
 import Button from '../Button';
 import { Form, Input } from './styles';
 
-export default function TaskForm({ onSave, buttonLabel = "Salvar" }) {
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+export default function TaskForm({ onSave, buttonLabel = "Salvar", task }) {
+  const [id, setId] = useState(task?.id ?? '');
+  const [title, setTitle] = useState(task?.title ?? '');
+  const [description, setDescription] = useState(task?.description ?? '');
 
   return (
     <Form>
@@ -20,7 +21,10 @@ export default function TaskForm({ onSave, buttonLabel = "Salvar" }) {
         onChangeText={setDescription}
       />
 
-      <Button onPress={() => onSave({ title, description })}>
+      <Button
+        onPress={() => onSave({ id, title, description })}
+        disabled={title.length === 0 || description.length === 0}
+      >
         {buttonLabel}
       </Button>
     </Form>

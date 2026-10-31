@@ -9,7 +9,7 @@ import { Header } from './styles';
 import close from '../../assets/images/close.png';
 import TaskForm from '../TaskForm';
 
-export default function NewTaskModal({ visible, onClose }) {
+export default function NewTaskModal({ visible, onClose, onSave }) {
   return (
     <CustomModal visible={visible} onClose={onClose}>
       <Header>
@@ -20,7 +20,7 @@ export default function NewTaskModal({ visible, onClose }) {
         </TouchableOpacity>
       </Header>
 
-      <TaskForm />
+      <TaskForm onSave={onSave} buttonLabel="Cadastrar" />
     </CustomModal>
   );
 }
